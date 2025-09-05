@@ -1,0 +1,161 @@
+<html>
+  <body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<section id="messages" class="messages-section">
+  <!-- Smoke animation layer -->
+  <div class="smoke"></div>
+  <div class="contact">
+    <h2>💨 Received Messages</h2>
+    <div class="table-wrapper">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in messages %}
+            <tr>
+              <td>{{ msg.name }}</td>
+              <td>{{ msg.email }}</td>
+              <td>{{ msg.subject }}</td>
+              <td>{{ msg.message }}</td>
+              <td>{{ msg.created_at }}</td>
+            </tr>
+          {% empty %}
+            <tr><td colspan="5">No messages yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+
+<style>
+/* Dark theme + smoke background */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Section Styling */
+.messages-section {
+  position: relative;
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin: 50px auto;
+  width: 90%;
+  max-width: 1200px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+/* Smoke Animation Layer */
+.smoke {
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;
+  height: 200%;
+  
+  opacity: 0.08;
+  animation: moveSmoke 60s linear infinite;
+  z-index: 0;
+}
+
+@keyframes moveSmoke {
+  from { transform: translate(0,0); }
+  to { transform: translate(-500px, -500px); }
+}
+
+/* Content */
+.contact {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #fffae3;
+  margin-bottom: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.6);
+}
+
+/* Table Container */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 15px;
+  background: rgba(20, 20, 20, 0.7);
+  padding: 15px;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.05);
+}
+
+/* Table Styling */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #eee;
+}
+
+.custom-table thead tr {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.custom-table th, 
+.custom-table td {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.custom-table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #ffd369;
+}
+
+.custom-table tbody tr {
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .custom-table th, 
+  .custom-table td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+  .contact h2 {
+    font-size: 1.6rem;
+  }
+}
+</style>
+
+
+

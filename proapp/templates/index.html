@@ -1,0 +1,484 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Nabeel | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap for responsiveness -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Particle Canvas */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 15px;
+      z-index: 1000;
+      animation: fadeDown 1s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      background: linear-gradient(90deg, #00c6ff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #00c6ff;
+      transition: width 0.4s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 80px 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      perspective: 1000px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .hero img {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 25px rgba(0, 198, 255, 0.7), 0 0 50px rgba(0, 198, 255, 0.4);
+      animation: float 4s ease-in-out infinite;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.05);
+      transition: transform 1s ease;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .hero img:hover {
+      transform: rotateY(360deg) scale(1.08);
+    }
+
+    .hero-content {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 20px rgba(0,198,255,0.4);
+      transition: transform 0.5s;
+      max-width: 500px;
+    }
+
+    .hero-content:hover {
+      transform: rotateY(15deg) rotateX(10deg);
+    }
+
+    .hero h2 {
+      font-size: 38px;
+      margin-bottom: 15px;
+      background: linear-gradient(90deg, #00c6ff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    /* Sections */
+    .about, .projects, .contact {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      padding: 50px;
+      text-align: center;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .about h2, .projects h2, .contact h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, #00c6ff, #ff00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 25px;
+      border-radius: 15px;
+      transition: transform 0.5s, box-shadow 0.3s;
+      box-shadow: 0 0 15px rgba(0,198,255,0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 0 30px rgba(0,198,255,0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #00e6ff;
+    }
+
+    .contact p {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, #00c6ff, #ff00ff);
+      border-radius: 25px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 15px rgba(255,0,255,0.4);
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(255,0,255,0.7);
+    }
+
+    footer {
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+
+    header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 15px;
+    z-index: 1000;
+  }
+
+  .navbar {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  .nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s;
+  }
+
+  .nav-links li a:hover {
+    color: #00c6ff;
+  }
+
+  /* Hamburger Menu */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      position: fixed;
+      top: 70px;
+      right: -100%;
+      background: rgba(0, 0, 0, 0.8);
+      flex-direction: column;
+      width: 200px;
+      padding: 20px;
+      gap: 15px;
+      transition: right 0.4s ease-in-out;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .nav-links.active {
+      right: 0;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <canvas id="particles"></canvas>
+
+  <header>
+    <h1>Mohammed Nabeel</h1>
+     <nav class="navbar">
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="/login/">.</a></li>
+    </ul>
+  </nav>
+  </header>
+
+  <section class="hero" id="hero">
+    <img src="{% static 'images/WhatsApp Image 2025-08-28 at 14.48.53_9166fb18.jpg' %}" alt="Mohammed Nabeel">
+    <div class="hero-content">
+      <h2>Hi, I'm Mohammed Nabeel 👋</h2>
+      <p>Full Stack Developer |Ai Enthusiast| BBA Graduate | Passionate about Web Development, Front-end Design & Back-end Solutions</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about">
+      <h2>About Me</h2>
+     <p>"I’m a passionate Full Stack Developer with expertise in HTML, CSS, JavaScript, Django, and MySQL, along with a strong interest in AI. I love creating innovative, responsive, and user-friendly websites that combine modern design with seamless functionality. With a BBA background, I bring not only technical skills but also valuable business insights, enabling me to craft solutions that are both creative and strategically impactful.</p>
+  </section>
+
+  <section id="projects">
+    <div class="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="card">
+          <h3>Hotel Management System</h3>
+          <p>Django + MySQL powered hotel management web app with booking & dashboard features.</p>
+        </div>
+        <div class="card">
+          <h3>E-commerce Platform</h3>
+          <p>Flipkart-style website with product management, cart, and secure checkout.</p>
+        </div>
+
+        <div class="card">
+          <h3>Real-Time Hospital Booking System</h3>
+          <p>A web-based system that allows patients to book hospital appointments in real time, improving efficiency and accessibility.</p>
+        </div>
+        
+        
+  </section>
+
+  <section id="contact">
+    <div class="contact">
+      <h2>Contact Me</h2>
+      <p>📧 Email: mohammednabeel1832@gmail.com</p>
+      <p>📞 Phone: +91 6282116340</p>
+      <a href="/contact/" class="btn">Send Message</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Mohammed Nabeel | All Rights Reserved</p>
+  </footer>
+
+  <!-- Particle Background Script -->
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray;
+
+    class Particle {
+      constructor(x, y, size, speedX, speedY) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speedX = speedX;
+        this.speedY = speedY;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.size > 0.2) this.size -= 0.02;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(0, 198, 255, 0.7)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particlesArray = [];
+      for (let i = 0; i < 120; i++) {
+        let size = Math.random() * 4 + 1;
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        let speedX = (Math.random() - 0.5) * 1;
+        let speedY = (Math.random() - 0.5) * 1;
+        particlesArray.push(new Particle(x, y, size, speedX, speedY));
+      }
+    }
+
+    function connectParticles() {
+      for (let a = 0; a < particlesArray.length; a++) {
+        for (let b = a; b < particlesArray.length; b++) {
+          let dx = particlesArray[a].x - particlesArray[b].x;
+          let dy = particlesArray[a].y - particlesArray[b].y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 120) {
+            ctx.strokeStyle = "rgba(0,198,255,0.15)";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      connectParticles();
+      requestAnimationFrame(animate);
+    }
+
+    init();
+    animate();
+
+    window.addEventListener("resize", function () {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      init();
+    });
+
+
+
+     const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
+
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+    menuToggle.classList.toggle("open");
+  });
+  </script>
+</body>
+</html>

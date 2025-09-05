@@ -1,0 +1,113 @@
+<html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <body>
+
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+    <h2 class="contact-title">📬 Contact Me</h2>
+    <p class="contact-subtitle">I’d love to hear from you! Just fill out the form below 👇</p>
+    
+    <form method="post" class="contact-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+</body>
+</html>
+
+<style>
+/* Contact Section */
+.contact-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.contact-container {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: fadeInUp 1s ease-in-out;
+}
+
+.contact-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.contact-subtitle {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #dcdcdc;
+}
+
+.contact-form p {
+  margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 8px #00c6ff;
+}
+
+.contact-form textarea {
+  resize: none;
+  height: 120px;
+}
+
+.btn {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: #fff;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: scale(1.05);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
